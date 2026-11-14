@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>20261115 N4 假定形 おんさん・そうさん</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --card: #ffffff;
+      --fg: #18181b;
+      --mute: #52525b;
+      --line: #e4e4e7;
+      --ta: #be185d;
+      --ba: #047857;
+      --to: #1d4ed8;
+      --tab: #fdf2f8;
+      --bab: #ecfdf5;
+      --tob: #eff6ff;
+      --ok: #15803d;
+      --ng: #b91c1c;
+      --hl: #fef9c3;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    html {
+      scroll-padding-top: env(safe-area-inset-top, 0px);
+      scroll-behavior: smooth;
+    }
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: var(--fg);
+      font: 16px/1.75 "Noto Sans TC", "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Microsoft JhengHei", sans-serif;
+    }
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 18px 80px;
+    }
+    header {
+      padding: 36px 0 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1.35;
+      margin: 0 0 6px;
+    }
+    .sub {
+      color: var(--mute);
+      margin: 0;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 16px 0 0;
+    }
+    nav a {
+      font-size: .85rem;
+      padding: 4px 12px;
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      color: var(--fg);
+      text-decoration: none;
+      background: #ffffff;
+      transition: background 0.15s;
+    }
+    nav a:hover {
+      background: #f4f4f5;
+    }
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin: 44px 0 12px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--line);
+    }
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin: 24px 0 8px;
+    }
+    section.g {
+      border-left: 5px solid var(--c);
+      padding-left: 16px;
+      --c: var(--ta);
+    }
+    section.g.ba { --c: var(--ba); }
+    section.g.to { --c: var(--to); }
+    section.g h2 {
+      border-color: var(--c);
+      color: var(--c);
+    }
+    .box {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin: 10px 0;
+    }
+    .jp {
+      font-size: 1.12rem;
+      font-weight: 600;
+    }
+    .zh {
+      color: var(--mute);
+      font-size: .92rem;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: .94rem;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #fafafa;
+      font-weight: 600;
+    }
+    .wrap {
+      overflow-x: auto;
+    }
+    .pre {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    .pre .box {
+      border-top: 4px solid var(--c);
+    }
+    .who {
+      display: inline-block;
+      font-size: .78rem;
+      font-weight: 600;
+      padding: 1px 10px;
+      border-radius: 99px;
+      margin-right: 6px;
+      background: var(--hl);
+      color: var(--fg);
+      border: 1px solid #fde047;
+    }
+    .ctx {
+      font-size: .88rem;
+      color: #3f3f46;
+      background: #f8fafc;
+      border-left: 3px solid #94a3b8;
+      padding: 4px 10px;
+      margin-bottom: 8px;
+      border-radius: 0 6px 6px 0;
+    }
+    .q {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin: 12px 0;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .opts {
+      display: grid;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .opts button, .tg {
+      font: inherit;
+      text-align: left;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      color: var(--fg);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .opts button:hover:not(:disabled), .tg:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+    .opts button:focus-visible, .tg:focus-visible, summary:focus-visible {
+      outline: 3px solid var(--to);
+      outline-offset: 2px;
+    }
+    .opts button.ok {
+      background: var(--bab);
+      border-color: var(--ok);
+      color: var(--ok);
+      font-weight: 600;
+    }
+    .opts button.ng {
+      background: var(--tab);
+      border-color: var(--ng);
+      color: var(--ng);
+    }
+    .fb {
+      margin-top: 8px;
+      font-size: .92rem;
+      display: none;
+    }
+    .fb.on {
+      display: block;
+    }
+    details {
+      margin-top: 8px;
+    }
+    summary {
+      cursor: pointer;
+      color: var(--to);
+      font-size: .92rem;
+      font-weight: 500;
+    }
+    .ans {
+      margin-top: 6px;
+      padding: 8px 12px;
+      background: var(--hl);
+      border-radius: 8px;
+    }
+    .blank {
+      display: inline-block;
+      min-width: 3.5em;
+      border-bottom: 2px solid var(--fg);
+      text-align: center;
+      color: var(--to);
+      font-weight: 700;
+      padding: 0 4px;
+    }
+    .note {
+      font-size: .9rem;
+      color: var(--mute);
+    }
+    .tg {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: .9rem;
+    }
+    .hw {
+      border: 2px dashed var(--line);
+      border-radius: 12px;
+      padding: 6px 14px 14px;
+      margin-top: 10px;
+      background: #ffffff;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>20261115 N4　假定形</h1>
+    <p class="sub">〜たら／〜ば／〜と　おんさん・そうさん 雙人練習</p>
+    <nav>
+      <a href="#prologue">序章</a>
+      <a href="#tara">〜たら</a>
+      <a href="#ba">〜ば</a>
+      <a href="#to">〜と</a>
+      <a href="#demo">例題</a>
+      <a href="#trans">日翻中</a>
+      <a href="#sum">統整</a>
+      <a href="#hw">作業</a>
+    </nav>
+  </header>
+
+  <h2 id="prologue">序章　日本旅遊常見的三種「如果」</h2>
+  <div class="pre">
+    <div class="box" style="--c:var(--ta)">
+      <b style="color:var(--ta)">〜たら（萬用、做完某事之後）</b>
+      <p class="jp mt-2">京都に着いたら、まず清水寺へ行きます。</p>
+      <p class="zh">到了京都之後，先去清水寺。</p>
+      <p class="jp mt-2">雨が降ったら、電車で行きましょう。</p>
+      <p class="zh">如果下雨，就搭電車去吧。</p>
+    </div>
+    <div class="box" style="--c:var(--ba)">
+      <b style="color:var(--ba)">〜ば（只要具備這個條件）</b>
+      <p class="jp mt-2">地図があれば、一人で行けます。</p>
+      <p class="zh">有地圖的話，我一個人就能去。</p>
+      <p class="jp mt-2">安ければ、お土産をたくさん買います。</p>
+      <p class="zh">如果便宜，我會買很多伴手禮。</p>
+    </div>
+    <div class="box" style="--c:var(--to)">
+      <b style="color:var(--to)">〜と（一做就發生、機器與路線）</b>
+      <p class="jp mt-2">このボタンを押すと、切符が出ます。</p>
+      <p class="zh">一按這個按鈕，車票就會出來。</p>
+      <p class="jp mt-2">春になると、京都は桜がきれいです。</p>
+      <p class="zh">一到春天，京都的櫻花就很美。</p>
+    </div>
+  </div>
+  <p class="note">作答分配：單數題請 おんさん 回答，雙數題請 そうさん 回答。</p>
+
+  <!-- 1. たら -->
+  <section class="g" id="tara">
+    <h2>① 〜たら</h2>
+    <h3>怎麼用</h3>
+    <div class="box">
+      意思：「如果…的話」或「做完…之後」。<br>
+      最百搭，後面可以接「想做某事、約人、拜託別人」。也可以用來說「一做某事，才意外發現…」。
+    </div>
+    <h3>怎麼接</h3>
+    <div class="wrap">
+      <table>
+        <tr><th>詞類</th><th>變法</th><th>例子</th></tr>
+        <tr><td>動詞</td><td>た形 ＋ ら</td><td>行く → 行<b>ったら</b>／飲む → 飲<b>んだら</b>／食べる → 食べ<b>たら</b>／する → し<b>たら</b>／来る → 来<b>たら</b></td></tr>
+        <tr><td>い形容詞</td><td>去い ＋ かったら</td><td>安い → 安<b>かったら</b></td></tr>
+        <tr><td>な形容詞・名詞</td><td>＋ だったら</td><td>静か → 静か<b>だったら</b>／雨 → 雨<b>だったら</b></td></tr>
+      </table>
+    </div>
+    <h3>暖身：字尾變化</h3>
+    <div data-mc="tara"></div>
+    <h3>開口翻翻看</h3>
+    <div data-tr="tara"></div>
+  </section>
+
+  <!-- 2. ば -->
+  <section class="g ba" id="ba">
+    <h2>② 〜ば</h2>
+    <h3>怎麼用</h3>
+    <div class="box">
+      意思：「只要…就…」。<br>
+      重點放在「要達成什麼條件」。如果後句想接「走吧、請幫我」，前句通常是狀態（像是 ある、ない、形容詞）。
+    </div>
+    <h3>怎麼接</h3>
+    <div class="wrap">
+      <table>
+        <tr><th>詞類</th><th>變法</th><th>例子</th></tr>
+        <tr><td>一類動詞</td><td>u段音 → e段音 ＋ ば</td><td>書く → 書<b>けば</b>／飲む → 飲<b>めば</b>／行く → 行<b>けば</b></td></tr>
+        <tr><td>二類動詞</td><td>去る ＋ れば</td><td>食べる → 食べ<b>れば</b>／見る → 見<b>れば</b></td></tr>
+        <tr><td>三類動詞</td><td>固定變法</td><td>する → す<b>れば</b>／来る → 来<b>れば</b></td></tr>
+        <tr><td>い形容詞</td><td>去い ＋ ければ</td><td>高い → 高<b>ければ</b>／いい → よ<b>ければ</b></td></tr>
+        <tr><td>な形容詞・名詞</td><td>＋ であれば（口語常說 なら）</td><td>静か → 静か<b>であれば</b></td></tr>
+      </table>
+    </div>
+    <h3>暖身：字尾變化</h3>
+    <div data-mc="ba"></div>
+    <h3>開口翻翻看</h3>
+    <div data-tr="ba"></div>
+  </section>
+
+  <!-- 3. と -->
+  <section class="g to" id="to">
+    <h2>③ 〜と</h2>
+    <h3>怎麼用</h3>
+    <div class="box">
+      意思：「一…就一定會…」。<br>
+      用在機器操作、報路、自然現象或固定習慣。<b>注意：後句絕對不能接「我想、走吧、請你…」這種人為想法！</b>
+    </div>
+    <h3>怎麼接</h3>
+    <div class="wrap">
+      <table>
+        <tr><th>詞類</th><th>變法</th><th>例子</th></tr>
+        <tr><td>動詞</td><td>原形（辞書形）＋ と</td><td>見る → 見<b>ると</b>／押す → 押<b>すと</b>／する → す<b>ると</b>／来る → 来<b>ると</b></td></tr>
+        <tr><td>い形容詞</td><td>直接 ＋ と</td><td>安い → 安<b>いと</b></td></tr>
+        <tr><td>な形容詞・名詞</td><td>＋ だと</td><td>静か → 静か<b>だと</b>／春 → 春<b>だと</b></td></tr>
+      </table>
+    </div>
+    <h3>暖身：字尾變化</h3>
+    <div data-mc="to"></div>
+    <h3>開口翻翻看</h3>
+    <div data-tr="to"></div>
+  </section>
+
+  <!-- 例題 -->
+  <h2 id="demo">綜合例題　聽情境填單字</h2>
+  <p class="note">看情境與中文，把缺的日文單字補進去，一起念出整句話。</p>
+  <div data-fill></div>
+
+  <!-- 日翻中 -->
+  <h2 id="trans">實戰日翻中</h2>
+  <div data-tr="final"></div>
+
+  <!-- 統整 -->
+  <h2 id="sum">一頁看懂三個「如果」</h2>
+  <div class="wrap">
+    <table>
+      <tr>
+        <th>比較</th>
+        <th style="color:var(--ta)">〜たら</th>
+        <th style="color:var(--ba)">〜ば</th>
+        <th style="color:var(--to)">〜と</th>
+      </tr>
+      <tr>
+        <td><b>怎麼接</b></td>
+        <td>た形 ＋ ら</td>
+        <td>e段音 ＋ ば ／ ければ</td>
+        <td>原形 ＋ と</td>
+      </tr>
+      <tr>
+        <td><b>最常用在</b></td>
+        <td>萬用假設、做完某事後</td>
+        <td>講條件（只要…就…）</td>
+        <td>機器反應、報路、季節變化</td>
+      </tr>
+      <tr>
+        <td><b>後面可約人或拜託嗎？</b></td>
+        <td>可以</td>
+        <td>前句是狀態就可以</td>
+        <td><b>不行</b></td>
+      </tr>
+      <tr>
+        <td><b>旅遊好句</b></td>
+        <td>着いたら、電話して</td>
+        <td>地図があれば行ける</td>
+        <td>押すと切符が出る</td>
+      </tr>
+    </table>
+  </div>
+  <div class="box">
+    <b>秒選口訣：</b>約人拜託選 <b>たら</b>，看條件選 <b>ば</b>，按機器或報路選 <b>と</b>。
+  </div>
+
+  <!-- 作業 -->
+  <h2 id="hw">課後小試身手（5題）</h2>
+  <p class="note">看上面的情境，選出最適合放進（　）的字。</p>
+  <div class="hw" data-mc="hw"></div>
+</main>
+
+<script>
+  var W = ["おんさん", "そうさん"];
+
+  // 選擇題資料：[情境, 題目, 選項陣列, 正解index, 簡短解析]
+  var D = {
+    tara: [
+      [
+        "情境：跟旅伴討論「到了京都要去哪裡」，要把「行く」變成「去了之後／如果去的話」",
+        "「行く」的 たら形 是？",
+        ["行いたら", "行ったら", "行くたら", "行きたら"],
+        1,
+        "行く 的た形是特別音變「行った」，加上ら就是「行ったら」。"
+      ],
+      [
+        "情境：在居酒屋想說「喝了酒之後臉就紅了」，要把「飲む」變成 たら形",
+        "「飲む」的 たら形 是？",
+        ["飲んだら", "飲みたら", "飲むたら", "飲もたら"],
+        0,
+        "む 結尾的音變是「んだ」，加ら變成「飲んだら」。"
+      ],
+      [
+        "情境：在逛街看衣服，想說「如果便宜的話就買」，要把「安い」變成 たら形",
+        "「安い」的 たら形 是？",
+        ["安いたら", "安くたら", "安かったら", "安だったら"],
+        2,
+        "い形容詞去掉「い」加上「かったら」。"
+      ],
+      [
+        "情境：在找咖啡廳，想說「如果店裡很安靜的話就進去坐」，要把「静か」變成 たら形",
+        "「静か」的 たら形 是？",
+        ["静かたら", "静かだったら", "静かかったら", "静かくたら"],
+        1,
+        "な形容詞直接加上「だったら」。"
+      ]
+    ],
+    ba: [
+      [
+        "情境：在填入境卡，店員說「只要寫上名字就好」，要把「書く」變成 ば形",
+        "「書く」的 ば形 是？",
+        ["書きば", "書かば", "書くば", "書けば"],
+        3,
+        "一類動詞把 u段音（く）換成 e段音（け）＋ば。"
+      ],
+      [
+        "情境：朋友肚子餓，你想說「只要吃點東西就有精神了」，要把「食べる」變成 ば形",
+        "「食べる」的 ば形 是？",
+        ["食べればば", "食べば", "食べれば", "食べるば"],
+        2,
+        "二類動詞去掉「る」加上「れば」。"
+      ],
+      [
+        "情境：在看新幹線票價，想說「如果太貴的話就改搭巴士」，要把「高い」變成 ば形",
+        "「高い」的 ば形 是？",
+        ["高いば", "高ければ", "高かれば", "高くば"],
+        1,
+        "い形容詞去掉「い」加上「ければ」。"
+      ],
+      [
+        "情境：跟日本朋友聊到「只要來台灣玩，我一定帶你去夜市」，要把「来る」變成 ば形",
+        "「来る」的 ば形 是？",
+        ["来れば", "来ば", "来るば", "来たら"],
+        0,
+        "来る 是不規則動詞，ば形固定變成「来（く）れば」。"
+      ]
+    ],
+    to: [
+      [
+        "情境：想表達「一看日劇就會忘記時間」，要把「見る」接上「と」",
+        "「見る」接「と」是？",
+        ["見ると", "見れると", "見たと", "見てと"],
+        0,
+        "動詞直接用原形（見る）＋と。"
+      ],
+      [
+        "情境：聊天時說「東西一便宜，大家就會搶著買」，要把「安い」接上「と」",
+        "「安い」接「と」是？",
+        ["安くと", "安かったと", "安いと", "安だと"],
+        2,
+        "い形容詞不用變，直接＋と。"
+      ],
+      [
+        "情境：住進溫泉旅館，說「晚上一安靜下來，就聽得到外面的水聲」，要把「静か」接上「と」",
+        "「静か」接「と」是？",
+        ["静かと", "静かだと", "静かなと", "静かいと"],
+        1,
+        "な形容詞要加上「だと」。"
+      ],
+      [
+        "情境：在看家電說明書，寫著「一這樣操作就會啟動」，要把「する」接上「と」",
+        "「する」接「と」是？",
+        ["すれと", "しると", "すると", "したと"],
+        2,
+        "する 原形直接＋と ＝ すると。"
+      ]
+    ],
+    hw: [
+      [
+        "情境：媽媽對小朋友說「作業寫完之後，就可以出去玩喔」",
+        "宿題が終わっ（　）、遊びに行ってもいいです。",
+        ["ても", "たら", "ば", "と"],
+        1,
+        "前面已經變成促音「終わっ」，接「たら」表示「做完某事之後」。"
+      ],
+      [
+        "情境：在路上問路人郵局在哪，路人手指著前面報路",
+        "この道をまっすぐ行く（　）、郵便局があります。",
+        ["ば", "たら", "なら", "と"],
+        3,
+        "前面是原形「行く」，而且是報路（「一往前走就會看到」），用「と」。"
+      ],
+      [
+        "情境：在百貨公司看到喜歡的包包，心想「如果再便宜一點我就買了…」",
+        "もっと安（　）、買うんですが。",
+        ["いと", "くて", "ければ", "くなる"],
+        2,
+        "い形容詞去い＋ければ，表示「只要再便宜一點的話」。"
+      ],
+      [
+        "情境：看到附近有知名甜點店，轉頭約旅伴「如果有時間的話，我們一起去吧！」",
+        "時間が（　）、一緒に行きましょう。",
+        ["あると", "あれば", "あるに", "あったり"],
+        1,
+        "後句是「一起去吧（邀約）」，不能用「と」，選狀態條件「あれば」。"
+      ],
+      [
+        "情境：搭電車抵達車站，走出剪票口，驚喜發現朋友已經在那裡等我了",
+        "駅に着いた（　）、友達が待っていました。",
+        ["ら", "ば", "と", "ほど"],
+        0,
+        "「着いた＋ら」，表示「一到站才發現…」。"
+      ]
+    ]
+  };
+
+  // 翻譯題資料：[情境, 日文, 參考中譯]
+  var T = {
+    tara: [
+      [
+        "情境：朋友準備搭電車來找你，你請他到站後打個電話，好去剪票口接他。",
+        "駅に着いたら、電話してください。",
+        "到站之後，請打電話給我。"
+      ],
+      [
+        "情境：這趟去日本行程很滿，你跟旅伴說如果還有空檔，好想去泡個溫泉。",
+        "時間があったら、温泉に行きたいです。",
+        "如果有時間，我想去泡溫泉。"
+      ]
+    ],
+    ba: [
+      [
+        "情境：搭新幹線經過靜岡縣，車掌廣播說只要天氣夠好，就能從窗戶看到富士山。",
+        "天気がよければ、富士山が見えます。",
+        "天氣好的話，就看得到富士山。"
+      ],
+      [
+        "情境：新宿車站像迷宮一樣，朋友交代你如果迷路了，直接去問站務員最快。",
+        "道がわからなければ、駅員に聞いてください。",
+        "如果不知道路，請問站務員。"
+      ]
+    ],
+    to: [
+      [
+        "情境：向飯店櫃檯詢問最近的電車站怎麼走，櫃檯人員指著大門外的馬路說明。",
+        "この道をまっすぐ行くと、右に駅があります。",
+        "沿著這條路直走，右邊就有車站。"
+      ],
+      [
+        "情境：第一次使用日本的付費置物櫃或自動販賣機，看著上面的操作步驟。",
+        "お金を入れると、ドアが開きます。",
+        "一投錢，門就會打開。"
+      ]
+    ],
+    final: [
+      [
+        "情境：快要趕不上預約好的餐廳了，你向旅伴提議乾脆攔計程車過去。",
+        "時間がなければ、タクシーで行きましょう。",
+        "如果沒時間，就搭計程車去吧。"
+      ],
+      [
+        "情境：跟日本朋友聊到北海道的旅遊旺季，他說每年夏天都會湧入大批遊客。",
+        "夏になると、北海道には観光客がたくさん来ます。",
+        "一到夏天，北海道就有很多觀光客來。"
+      ]
+    ]
+  };
+
+  // 填充題資料：[情境, 中文, 日文含挖空, 答案, 文法標籤]
+  var F = [
+    [
+      "情境：跟日本朋友約在大阪見面，請他一到車站就聯絡你。",
+      "到了大阪車站，請打電話給我。",
+      "大阪駅に着いたら、<span class=\"blank\" data-a=\"電話\"></span>してください。",
+      "電話（でんわ）",
+      "たら"
+    ],
+    [
+      "情境：準備去藥妝店採購，心想如果價格划算就要大買特買。",
+      "如果便宜，我會買很多伴手禮。",
+      "安ければ、<span class=\"blank\" data-a=\"お土産\"></span>をたくさん買います。",
+      "お土産（おみやげ）",
+      "ば"
+    ],
+    [
+      "情境：向朋友介紹京都四季的風景，特別推薦春天的賞櫻季。",
+      "一到春天，京都的櫻花很美。",
+      "春になると、京都は<span class=\"blank\" data-a=\"桜\"></span>がきれいです。",
+      "桜（さくら）",
+      "と"
+    ]
+  ];
+
+  function who(i) {
+    return '<span class="who">' + W[i % 2] + '</span>';
+  }
+
+  document.querySelectorAll("[data-mc]").forEach(function(el) {
+    var k = el.getAttribute("data-mc");
+    D[k].forEach(function(q, i) {
+      var d = document.createElement("div");
+      d.className = "q";
+      d.innerHTML =
+        '<div class="ctx">' + q[0] + '</div>' +
+        who(i) + '<b>' + (i + 1) + '.</b> <span class="jp">' + q[1] + '</span>' +
+        '<div class="opts"></div><div class="fb"></div>';
+      var o = d.querySelector(".opts"),
+          fb = d.querySelector(".fb");
+      q[2].forEach(function(t, j) {
+        var b = document.createElement("button");
+        b.textContent = (j + 1) + ". " + t;
+        b.onclick = function() {
+          o.querySelectorAll("button").forEach(function(x, n) {
+            x.disabled = true;
+            if (n === q[3]) x.classList.add("ok");
+          });
+          if (j !== q[3]) b.classList.add("ng");
+          fb.classList.add("on");
+          fb.innerHTML = (j === q[3] ? "✓ 答對了！" : "✗ 答案是 " + (q[3] + 1) + "。") + q[4];
+        };
+        o.appendChild(b);
+      });
+      el.appendChild(d);
+    });
+  });
+
+  document.querySelectorAll("[data-tr]").forEach(function(el) {
+    T[el.getAttribute("data-tr")].forEach(function(t, i) {
+      var d = document.createElement("div");
+      d.className = "q";
+      d.innerHTML =
+        '<div class="ctx">' + t[0] + '</div>' +
+        who(i) + '<span class="jp">' + t[1] + '</span>' +
+        '<details><summary>點我看中文意思</summary><div class="ans">' + t[2] + '</div></details>';
+      el.appendChild(d);
+    });
+  });
+
+  document.querySelectorAll("[data-fill]").forEach(function(el) {
+    F.forEach(function(f, i) {
+      var d = document.createElement("div");
+      d.className = "q";
+      d.innerHTML =
+        '<div class="ctx">' + f[0] + '</div>' +
+        '<b>例' + (i + 1) + '.</b> <span class="zh">' + f[1] + '</span>' +
+        '<p class="jp mt-1">' + f[2] + '</p>' +
+        '<button class="tg">看單字答案</button><div class="fb"></div>';
+      var b = d.querySelector(".tg"),
+          fb = d.querySelector(".fb");
+      b.onclick = function() {
+        var blank = d.querySelector(".blank");
+        blank.textContent = blank.getAttribute("data-a");
+        fb.classList.add("on");
+        fb.innerHTML = "單字：<b>" + f[3] + "</b>（這句用到：〜" + f[4] + "）";
+        b.remove();
+      };
+      el.appendChild(d);
+    });
+  });
+</script>
+</body>
+</html>
